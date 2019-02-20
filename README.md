@@ -25,6 +25,7 @@ Quite more precisly, CerebralMate does not take words at face value. It only rea
 These combinations of parameters coorespond to all 8 of Brainfuck's operators. 
 
 with first letter not capitalized
+
 | CerebralMate  | BrainFuck     |
 | ------------- |:-------------:|
 | length < 4    |               |
@@ -33,6 +34,7 @@ with first letter not capitalized
 | length >  5   |               |
 
 with first letter capitalized
+
 | CerebralMate  | BrainFuck     |
 | ------------- |:-------------:|
 | length < 4    |               |
