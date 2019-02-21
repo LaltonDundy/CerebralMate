@@ -41,3 +41,18 @@ These combinations of parameters coorespond to all 8 of Brainfuck's operators.
 | length == 4   |       ,       |
 | length == 5   |       [       |
 | length >  5   |       ]       |
+
+due to this, programs that read different may be the same.
+
+In CerebralMate these two programs are equivalent.
+
+
+```
+Love You
+```
+
+```
+Fuck You
+```
+
+
