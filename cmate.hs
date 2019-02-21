@@ -6,18 +6,6 @@ data Tokes = Nada
     | MoveRight | Inc        | Dec      | Output
     | GetByte   | StartWhile | EndWhile | MoveLeft
 
-instance Show Tokes where
-
-    show MoveLeft   = "<"
-    show MoveRight  = ">"
-    show Inc        = "+"
-    show Dec        = "-"
-    show Output     = "."
-    show GetByte    = ","
-    show StartWhile = "["
-    show EndWhile   = "]"
-    show Nada       = ""
-
 parse :: String -> [ Tokes ]
 parse = map ( \ wrd -> case wrd of
                         x : _ -> if isLower x then firstSet wrd 
@@ -34,9 +22,6 @@ parse = map ( \ wrd -> case wrd of
             | (length wrd) == 4  = GetByte
             | (length wrd) == 5  = StartWhile
             | (length wrd) >  5  = EndWhile
-
-arraySize = 10
-array     = fromList $ replicate arraySize 0
 
 eval :: ( Zipper Int , Zipper Tokes ) -> IO ( Zipper Int , Zipper Tokes ) 
 eval ( ray , ast ) = 
@@ -81,7 +66,10 @@ eval ( ray , ast ) =
           goBack v   = goBack'   v 0
           change f ray = replace ( f . cursor $ ray ) ray
 
-evaluate :: [ Tokes ] -> IO ()
-evaluate lst = eval ( array , fromList lst) >> return () 
+evaluate :: Int -> [ Tokes ] -> IO ()
+evaluate n lst = eval ( fromList $ replicate n 0 , fromList lst) >> return () 
 
-main = do { args <- getArgs; f <- readFile (head args); evaluate  . parse $ f ; }
+getSize lst = if (head lst) == "-mem" then read (lst !! 1 ) :: Int else 30
+getFile lst = if (head lst) == "-mem" then lst!!2 else head lst
+
+main = getArgs >>= \ arg -> (  ( readFile . getFile $ arg )  >>=  ( evaluate (getSize arg ) ) . parse )
